@@ -1,0 +1,9 @@
+@import 'reset.css';
+
+body {
+    font-family: "Segoe UI";
+    font-size: 16px;
+    background-color: teal;
+}
+
+
