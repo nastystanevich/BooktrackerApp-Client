@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {Card, Icon, Image} from 'semantic-ui-react'
-import './BookCard.css';
+import React, {Component} from 'react'
+import {Icon} from 'semantic-ui-react'
+import styles from './BookCard.css';
 
 class BookCard extends Component {
    constructor(props) {
@@ -8,25 +8,29 @@ class BookCard extends Component {
         this.title = props.title;
         this.author = props.author;
         this.cover = props.cover;
-    }
+    };
 
     render() {
-        return (
-            <Card className="book-card">
-                <Image src={this.cover} />
-                <Card.Content>
-                    <Card.Header>{this.title}</Card.Header>
-                    <Card.Meta>{this.author}</Card.Meta>
-                </Card.Content>
-                <Card.Content extra>
-                    <a>
-                    <Icon name='like' color="teal"/>
-                        Likes
-                    </a>
-                </Card.Content>
-            </Card>
+        return (            
+            <div className={styles.card}>
+                <img className={styles.image} src={this.cover} alt="cover image"/>
+                <div className={styles.content}>
+                    <h3 className={styles.title}>
+                        {this.title}
+                    </h3>
+                    <span className={styles.author}>{this.author}</span>
+                </div>
+                <div className={styles.extra}>
+                      <Icon name="user" color="teal">
+                        
+                      </Icon> 
+                      <Icon name="like" color="teal">
+                        
+                      </Icon>                 
+                </div>
+            </div>
         );
-    }
+    };
 }
 
 export default BookCard;

@@ -1,4 +1,4 @@
-.wrapper {
+:local(.wrapper) {
     margin: auto;
     padding-top: 20px;
     width: 70%;
@@ -7,4 +7,9 @@
         width: 100%; 
         padding: 20px;
     }
+};
+:local(.content) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

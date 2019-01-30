@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Grid, Button} from 'semantic-ui-react'
-import './Header.scss';
+import {Button} from 'semantic-ui-react'
+import styles from './Header.scss';
 
 class LogInButton extends Component {
     render() {
@@ -21,17 +21,13 @@ export class Header extends Component {
 
     render() {
         return(
-            <Grid columns={2} className="header">
-                <Grid.Column>
-                   <h1 className="title">Booktracker</h1>  
-                </Grid.Column>
-                <Grid.Column >
-                    <Button.Group floated="right">
-                        <LogInButton />
-                        <SignUpButton />
-                    </Button.Group>
-                </Grid.Column>
-            </Grid>
+            <div className={styles.container}>
+                <h1 className={styles.title}>Booktracker</h1>
+                <div>
+                    <LogInButton />
+                    <SignUpButton />
+                </div>
+            </div>
         );
     }
 }

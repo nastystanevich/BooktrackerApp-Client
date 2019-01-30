@@ -1,3 +1,16 @@
-.card-group{
-  
+
+:local(.container) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: bottom;
+
+}
+:local(.booksContainer) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+:local(.container) {
+    width: 100%;
 }

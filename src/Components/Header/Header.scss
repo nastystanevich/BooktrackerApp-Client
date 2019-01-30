@@ -1,8 +1,12 @@
-.title{
+:local(.container) {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 100px;
+}
+:local(.title) {
     text-transform: uppercase;
     font-size: 5em;
     font-weight: 100;
-    color: aliceblue;
     @media screen and (max-width: 980px) {
         font-size: 4em;
     }

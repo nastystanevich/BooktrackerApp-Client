@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Card} from 'semantic-ui-react'
 import BookCard from '../BookCard/BookCard'
-import './BooksGroup.css';
+import BooksAmount from '../BooksAmount/BooksAmount'
+import styles from './BooksGroup.css';
+
 
 class BooksGroup extends Component {
     constructor(){
@@ -30,17 +31,18 @@ class BooksGroup extends Component {
         .catch(error => {
             console.log(error);
         });
-
-    }
+    };
    
-
     render() {
-        return (
-            <Card.Group itemsPerRow={5} className="card-group">
-                {this.state.bookCards}
-            </Card.Group>
-    );
-    }
+        return (        
+            <div className={styles.container}>
+                <div className={styles.booksContainer}>
+                    {this.state.bookCards} 
+                </div>
+                <BooksAmount amount={this.state.bookCards.length}></BooksAmount>    
+            </div>
+        );
+    };
 }
 
 export default BooksGroup;
