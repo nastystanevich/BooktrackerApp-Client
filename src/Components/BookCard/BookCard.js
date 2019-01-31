@@ -1,19 +1,28 @@
-import React, {Component} from 'react'
-import {Icon} from 'semantic-ui-react'
-import styles from './BookCard.css';
+import React, {Component} from 'react';
+import {Icon} from 'semantic-ui-react';
+import BookDetailsButton from '../BookDetailsButton/BookDetailsButton';
+import styles from './BookCard.scss';
 
 class BookCard extends Component {
    constructor(props) {
         super(props);
+        this.id = props.id;
         this.title = props.title;
         this.author = props.author;
         this.cover = props.cover;
+        this.likes = props.likes
     };
 
     render() {
         return (            
             <div className={styles.card}>
-                <img className={styles.image} src={this.cover} alt="cover image"/>
+                <div className={styles['image-container']}>
+                   <img className={styles.image} src={this.cover} alt="oops"/> 
+                   <div className={styles['image-overlay']}>
+                        <BookDetailsButton id={this.id}></BookDetailsButton>
+                    </div>
+                </div>
+                
                 <div className={styles.content}>
                     <h3 className={styles.title}>
                         {this.title}
@@ -21,12 +30,12 @@ class BookCard extends Component {
                     <span className={styles.author}>{this.author}</span>
                 </div>
                 <div className={styles.extra}>
-                      <Icon name="user" color="teal">
-                        
-                      </Icon> 
-                      <Icon name="like" color="teal">
-                        
-                      </Icon>                 
+                        <Icon name="user" color="teal">
+
+                        </Icon> 
+                        <Icon name="like" color="teal">
+                            {this.likes}
+                        </Icon>                 
                 </div>
             </div>
         );

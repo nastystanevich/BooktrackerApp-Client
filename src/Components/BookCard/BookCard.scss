@@ -1,0 +1,59 @@
+:local(.card){
+    margin: 5px;
+    width: 180px;
+    height: 380px;
+    background-color: aliceblue;
+    border-radius: 2%;
+}
+@mixin flexable($direction, $justifying, $align: flex-start) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justifying;
+    align-items: $align;
+}
+%image-styles{
+    position: relative;
+    width: 100%;
+    height: 60%;
+    border-radius: 2%;
+}
+:local(.image-container) {
+    @extend %image-styles;
+}
+:local(.image) {
+    @extend %image-styles;
+    height: 100%;
+}
+:local(.image-overlay) {
+    position: absolute;
+    @include flexable(row, center, center);
+    opacity: 0;
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    border-radius: 2%;
+    background-color: rgba(0, 49, 49, 0.9);
+    transition: opacity 0.3s, visibility 0.3s ease-out;
+}
+:local(.image-container:hover .image-overlay) { 
+    opacity: 1;
+    visibility: visible;
+}
+:local(.title) {
+    color: black;
+}
+:local(.content) {
+    height: 100px;
+    padding: 5px;
+}
+:local(.author) {
+   color: gray;
+}
+:local(.extra) {
+    @include flexable(column, space-between);
+    padding: 5px;
+    border-top: 1px solid lightgrey;
+}

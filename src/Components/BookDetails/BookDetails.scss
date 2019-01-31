@@ -1,0 +1,24 @@
+:local(.container) {
+    width: 60%;
+    margin: auto;
+    background-color: #005656;
+    padding: 10px;
+    border-radius: 5px;
+}
+:local(.content) {
+    display: flex;
+}
+:local(.main-content) {
+    width: 100%;
+    padding: 0px 20px;
+}
+:local(.header) {
+    padding-bottom: 20px;
+    text-align: center;
+}
+:local(.title) {
+    color: #C71585;
+}
+:local(.description) {
+    text-align: justify;
+}

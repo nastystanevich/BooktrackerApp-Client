@@ -11,19 +11,21 @@ class BooksGroup extends Component {
             bookCards: Array
         };
     };
+    
     componentDidMount() {
         const url = "http://localhost:3002/api/books";
         fetch(url)
         .then((response) => response.json())
         .then((books) => {
-            this.setState({isLoaded: true});
             const bookCards = books.map(book => {
                 return (
                     <BookCard 
                         key={book._id}
+                        id={book._id}
                         title={book.title}
                         author={book.author}
                         cover={book.cover}
+                        likes={book.likes.length}
                     ></BookCard>)
             });
             this.setState({bookCards: bookCards});

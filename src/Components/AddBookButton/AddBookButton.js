@@ -4,14 +4,13 @@ import {Link} from 'react-router-dom';
 import styles from './AddBookButton.css';
 
 class AddBookButton extends Component {
-
     render() {
         return (
-            <Button inverted color="white">
-                <Link to='/addbook' className={styles.white}>
+            <Link to='/addbook' className={styles.white}>
+                <Button inverted color="white">
                     Add new one
-                </Link> 
-            </Button>
+                </Button>
+            </Link>
         );
     }
 }
