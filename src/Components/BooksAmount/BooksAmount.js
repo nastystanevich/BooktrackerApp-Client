@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import AddBookButton from '../AddBookButton/AddBookButton'
+import PropTypes from 'prop-types';
+import AddBookButton from '../AddBookButton/AddBookButton';
 import styles from './BooksAmount.css';
 
 class BooksAmount extends Component {
@@ -7,13 +8,16 @@ class BooksAmount extends Component {
         return (
             <div className={styles.container}>
                 <p>Today</p>
-                <p className={styles.amount}>{this.props.amount}</p>
+                <p>{this.props.amount}</p>
                 <p>books</p>
                 <AddBookButton />
             </div>
-            
         );
     }
 }
+
+BooksAmount.propTypes = {
+    amount: PropTypes.number,
+};
 
 export default BooksAmount;

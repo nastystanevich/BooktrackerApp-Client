@@ -1,17 +1,18 @@
-import React, {Component} from 'react'
-import { Button, Form} from 'semantic-ui-react'
-import styles from './AddBookForm.css'
+import React, {Component} from 'react';
+import { Button, Form} from 'semantic-ui-react';
+import styles from './AddBookForm.css';
 
 
 class AddBookForm extends Component {
     constructor(props) {
         super(props);
-        this.state = {         
+        this.coverFile = React.createRef();
+        this.state = {
             titleValid: false,
             authorValid: false,
             publishedValid: false,
-            coverValid: false,
-            formValid: false
+            //coverValid: false,
+            formValid: false,
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -19,60 +20,72 @@ class AddBookForm extends Component {
         this.handleResetClick = this.handleResetClick.bind(this);
         this.validateField = this.validateField.bind(this);
         this.validateForm = this.validateForm.bind(this);
-    };
+        //this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
+    }
 
     handleChange(event) {
         const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
+        let value = null;
+        switch (target.type) {
+        case 'checkbox':
+            value = target.checked;
+            break;
+        case 'file':
+            value = event.target.files[0];
+            break;
+        default:
+            value = target.value;
+            break;
+        }
 
+        const name = target.name;
         this.setState({
-            [name]: value}, 
-            () => { this.validateField(name, value) 
+            [name]: value}, () => {
+            this.validateField(name, value);
         });
-    };
+    }
 
     validateField(fieldName, value) {
         let titleValid = this.state.titleValid;
         let authorValid = this.state.authorValid;
         let publishedValid = this.state.publishedValid;
-        let coverValid = this.state.coverValid;
+        //let coverValid = this.state.coverValid;
 
         switch(fieldName) {
-          case 'title':
-            titleValid = value.match(/\s*[а-яА-ЯёЁa-zA-Z0-9]+/) ;
+        case 'title':
+            titleValid = value.match(/\s*[а-яА-ЯёЁa-zA-Z0-9]+/);
             break;
-          case 'author':
+        case 'author':
             authorValid = value.match(/\s*[а-яА-ЯёЁa-zA-Z]+/i);
             break;
         case 'published':
             publishedValid = value.match(/^[1-9][0-9]{3}$/);
             break;
         case 'cover':
-            coverValid = value.match(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm);
+            //coverValid = value.match(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/gm);
             break;
-          default:
+        default:
             break;
-        };
+        }
 
         this.setState({
             titleValid: titleValid,
             authorValid: authorValid,
             publishedValid: publishedValid,
-            coverValid: coverValid
-            },
-            this.validateForm);
-    };
+            //coverValid: coverValid,
+        },
+        this.validateForm);
+    }
 
     validateForm() {
         this.setState({
-            formValid: 
+            formValid:
                 this.state.titleValid &&
                 this.state.authorValid &&
-                this.state.publishedValid &&
-                this.state.coverValid
+                this.state.publishedValid,
+            //this.state.coverValid,
         });
-    };
+    }
 
     handleResetClick() {
         this.setState({
@@ -86,9 +99,9 @@ class AddBookForm extends Component {
             authorValid: false,
             publishedValid: false,
             coverValid: false,
-            formValid: false
-        }); 
-    };
+            formValid: false,
+        });
+    }
 
     handleSubmit() {
         const book = {
@@ -96,34 +109,35 @@ class AddBookForm extends Component {
             author: this.state.author,
             cover: this.state.cover,
             published: this.state.published,
-            comments: {
-                user: null,
-                comment: this.state.comment
-            }
-        }
+            user: null,
+            comment: this.state.comment,
+        };
         if (this.state.like) {
-            book.likes = {
-                user: null,
-                like: this.state.comment
-            }    
+            book.like = this.state.comment;
         }
-        const queryBody = JSON.stringify(book);
-        console.log(queryBody);
         const url = 'http://localhost:3002/api/books';
+
+        const queryBody = new FormData();
+        for (const key in this.state) {
+            queryBody.append(key, this.state[key]);
+        }
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        };
 
         fetch(url, {
             method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
+            config,
             body: queryBody,
         })
-        .then(response => {
-            this.handleResetClick();
-            response.json()
-        });
-    };
+            .then(response => {
+                this.handleResetClick();
+                response.json();
+            });
+    }
+
 
     render() {
         return(
@@ -142,24 +156,22 @@ class AddBookForm extends Component {
                     <input type='text' name='published' value={this.state.published} onChange={this.handleChange} placeholder='Year' />
                 </Form.Field>
                 <Form.Field>
-                    <label htmlFor='cover'>Cover's URL</label>
-                    <input type='text' name='cover' value={this.state.cover} onChange={this.handleChange} placeholder='URL' />
+                    <input className={styles.hidden} type='file' name='cover' ref={fileInput => (this.fileInput = fileInput)} onChange={this.handleChange} accept='image/*'></input>
+                    <Button type='button' color='pink' onClick={() => this.fileInput.click()}>Choose book cover</Button>
                 </Form.Field>
                 <Form.Field>
-                    <label htmlFor='cover'>Your comment</label>
+                    <label htmlFor='comment'>Your comment</label>
                     <textarea name='comment' value={this.state.comment} onChange={this.handleChange} placeholder='Comment' />
                 </Form.Field>
                 <Form.Field>
                     <label htmlFor='like'>Like it</label>
-                    <input type='checkbox' name='like'  checked={this.state.like}  onChange={this.handleChange}></input>
+                    <input type='checkbox' name='like' checked={this.state.like} onChange={this.handleChange}></input>
                 </Form.Field>
-                <Button type="button" onClick={this.handleResetClick}>Reset</Button>
+                <Button type='button' onClick={this.handleResetClick}>Reset</Button>
                 <Button type='submit' color="teal" disabled={!this.state.formValid}>Add The Book</Button>
             </Form>
         );
-    };
-};
-
-
+    }
+}
 
 export default AddBookForm;

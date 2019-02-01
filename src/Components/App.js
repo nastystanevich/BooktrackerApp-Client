@@ -14,7 +14,6 @@ const App = () => (
             <Route path='/bookdetails/:id' component={BookDetails} />
         </Switch>
     </div>
-)
-
+);
 
 export default App;

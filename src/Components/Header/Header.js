@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button} from 'semantic-ui-react'
+import {Button} from 'semantic-ui-react';
 import styles from './Header.scss';
 
 class LogInButton extends Component {
@@ -8,7 +8,7 @@ class LogInButton extends Component {
             <Button inverted content="Log In" color="pink"></Button>
         );
     }
-} 
+}
 class SignUpButton extends Component {
     render() {
         return(

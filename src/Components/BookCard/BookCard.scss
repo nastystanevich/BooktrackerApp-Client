@@ -1,20 +1,23 @@
-:local(.card){
-    margin: 5px;
-    width: 180px;
-    height: 380px;
-    background-color: aliceblue;
-    border-radius: 2%;
-}
+$cardWidth: 180px;
+$imageHeight: 220px;
 @mixin flexable($direction, $justifying, $align: flex-start) {
     display: flex;
     flex-direction: $direction;
     justify-content: $justifying;
     align-items: $align;
 }
+:local(.card){
+    @include flexable(column, space-between);
+    margin: 5px;
+    width: $cardWidth;
+    background-color: aliceblue;
+    border-radius: 2%;
+}
+
 %image-styles{
     position: relative;
     width: 100%;
-    height: 60%;
+    height: $imageHeight;
     border-radius: 2%;
 }
 :local(.image-container) {
@@ -46,7 +49,6 @@
     color: black;
 }
 :local(.content) {
-    height: 100px;
     padding: 5px;
 }
 :local(.author) {
@@ -55,5 +57,18 @@
 :local(.extra) {
     @include flexable(column, space-between);
     padding: 5px;
+    width: 100%;
     border-top: 1px solid lightgrey;
+}
+@media screen and (max-width: 770px) {
+    :local(.card){
+        width: $cardWidth/2;
+        font-size: 0.7em;
+    }
+    :local(.image-container) {
+        height: $imageHeight/2;
+    }
+    :local(.title) {
+        font-size: 1em;
+    }   
 }

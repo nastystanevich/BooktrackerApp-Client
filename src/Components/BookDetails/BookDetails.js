@@ -1,25 +1,24 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {Icon} from 'semantic-ui-react';
+import BookComments from '../BookComments/BookComments';
 import styles from './BookDetails.scss';
 
 class BookDetails extends Component {
     constructor(props) {
         super(props);
         this.id = this.props.match.params.id;
-        this.state = {}
-    };
+        this.state = {};
+    }
 
-    componentDidMount(){
+    componentDidMount() {
         const url = `http://localhost:3002/api/books/${this.id}`;
         fetch(url)
-        .then((response) => response.json())
-        .then((book) => {
-            this.setState(book);
-            this.setState({likesAmount: this.state.likes.length});
-        })
-        .catch(error => {
-            console.log(error);
-        });
+            .then((response) => response.json())
+            .then((book) => {
+                this.setState(book);
+                this.setState({likesAmount: this.state.likes});
+            });
     }
 
     render() {
@@ -35,13 +34,26 @@ class BookDetails extends Component {
                         </div>
                         <Icon name="like">
                             {this.state.likesAmount}
-                        </Icon> 
+                        </Icon>
                         <p className={styles.description}>{this.state.description}</p>
-                    </div>   
+                    </div>
+                </div>
+                <div className={styles.comments}>
+                    <h3>Comments</h3>
+                    <BookComments comments={this.state.comments}></BookComments>
                 </div>
             </div>
-        )
+        );
     }
 }
+
+BookDetails.propTypes = {
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+            id: PropTypes.string,
+        }),
+    }),
+};
+
 
 export default BookDetails;
