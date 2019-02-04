@@ -1,8 +1,7 @@
 :local(.container) {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-content: bottom;
+    width: 100%;
     @media screen and (max-width: 770px) {
         flex-direction: column-reverse;
     }
@@ -11,7 +10,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-}
-:local(.container) {
-    width: 100%;
+    @media screen and (max-width: 770px) {
+        justify-content: center;
+    }
 }

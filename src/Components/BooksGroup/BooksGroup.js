@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import BookCard from '../BookCard/BookCard';
 import BooksAmount from '../BooksAmount/BooksAmount';
 import styles from './BooksGroup.scss';
-
+import {API_PORT} from '../../config';
 
 class BooksGroup extends Component {
     constructor() {
@@ -12,8 +12,12 @@ class BooksGroup extends Component {
         };
     }
 
+    count(marks) {
+        return (marks.filter(like => like.like).length);
+    }
+
     componentDidMount() {
-        const url = 'http://localhost:3002/api/books';
+        const url = `http://localhost:${API_PORT}/api/books`;
         fetch(url)
             .then((response) => response.json())
             .then((books) => {
@@ -24,7 +28,8 @@ class BooksGroup extends Component {
                         title={book.title}
                         author={book.author}
                         cover={book.cover}
-                        likes={book.likes.length}
+                        likes={this.count(book.likes)}
+                        dislikes={this.count(book.dislikes)}
                     ></BookCard>
                 ));
                 this.setState({bookCards: bookCards});

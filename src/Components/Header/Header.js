@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import {Button} from 'semantic-ui-react';
 import styles from './Header.scss';
 
 class LogInButton extends Component {
     render() {
         return(
-            <Button inverted content="Log In" color="pink"></Button>
+            <Link to='/user/login'>
+                <Button inverted content="Log In" color="pink"></Button>
+            </Link>
         );
     }
 }
 class SignUpButton extends Component {
     render() {
         return(
-            <Button inverted content="Sign Up" color="white"></Button>
+            <Link to='/user/signup'>
+                <Button inverted content="Sign Up" color="white"></Button>
+            </Link>
         );
     }
 }

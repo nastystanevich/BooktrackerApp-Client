@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { Button, Form} from 'semantic-ui-react';
-import styles from './AddBookForm.css';
+import {Button, Form, Rating} from 'semantic-ui-react';
+import styles from './AddBookForm.scss';
 
 
 class AddBookForm extends Component {
@@ -23,7 +23,7 @@ class AddBookForm extends Component {
         //this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
     }
 
-    handleChange(event) {
+    handleChange(event, rating) {
         const target = event.target;
         let value = null;
         switch (target.type) {
@@ -31,14 +31,20 @@ class AddBookForm extends Component {
             value = target.checked;
             break;
         case 'file':
-            value = event.target.files[0];
+            value = target.files[0];
+            break;
+        case 'underfined':
+            value = target.rating;
             break;
         default:
             value = target.value;
             break;
         }
+        if(rating) {
+            value = !!rating.rating;
+        }
 
-        const name = target.name;
+        const name = target.name || rating.name;
         this.setState({
             [name]: value}, () => {
             this.validateField(name, value);
@@ -163,9 +169,9 @@ class AddBookForm extends Component {
                     <label htmlFor='comment'>Your comment</label>
                     <textarea name='comment' value={this.state.comment} onChange={this.handleChange} placeholder='Comment' />
                 </Form.Field>
-                <Form.Field>
+                <Form.Field className={styles['likes-container']}>
                     <label htmlFor='like'>Like it</label>
-                    <input type='checkbox' name='like' checked={this.state.like} onChange={this.handleChange}></input>
+                    <Rating icon='heart' name='like' size='huge' rating={this.state.like} onRate={this.handleChange}></Rating>
                 </Form.Field>
                 <Button type='button' onClick={this.handleResetClick}>Reset</Button>
                 <Button type='submit' color="teal" disabled={!this.state.formValid}>Add The Book</Button>

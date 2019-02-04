@@ -12,6 +12,7 @@ class BookCard extends Component {
         this.author = props.author;
         this.cover = props.cover;
         this.likes = props.likes;
+        this.dislikes = props.dislikes;
     }
 
     render() {
@@ -34,12 +35,13 @@ class BookCard extends Component {
                     <Icon name="user" color="teal">
 
                     </Icon>
-                    <Icon name="like" color="teal">
+                    <Icon name="like" color="pink">
                         {this.likes}
                     </Icon>
+                    <Icon name="like" color='grey'>
+                        {this.dislikes}
+                    </Icon>
                 </div>
-                
-
             </div>
         );
     }
@@ -51,6 +53,7 @@ BookCard.propTypes = {
     author: PropTypes.string,
     cover: PropTypes.string,
     likes: PropTypes.number,
+    dislikes: PropTypes.number,
 };
 
 export default BookCard;

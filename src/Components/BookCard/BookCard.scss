@@ -41,24 +41,26 @@ $imageHeight: 220px;
     background-color: rgba(0, 49, 49, 0.9);
     transition: opacity 0.3s, visibility 0.3s ease-out;
 }
+@import '../../variables/colors';
+
 :local(.image-container:hover .image-overlay) { 
     opacity: 1;
     visibility: visible;
 }
 :local(.title) {
-    color: black;
+    color: $dark-font;
 }
 :local(.content) {
     padding: 5px;
 }
 :local(.author) {
-   color: gray;
+   color: $secondary-font;
 }
 :local(.extra) {
     @include flexable(column, space-between);
     padding: 5px;
     width: 100%;
-    border-top: 1px solid lightgrey;
+    border-top: 1px solid $light-divider;
 }
 @media screen and (max-width: 770px) {
     :local(.card){
