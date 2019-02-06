@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
-import './index.scss';
-import App from './Components/App';
+import './styles/index.scss';
+import App from './components/App';
 
 
 ReactDOM.render((

@@ -1,0 +1,39 @@
+@import '../../styles/variables/colors';
+
+:local(.container) {
+    width: 60%;
+    margin: auto;
+    background-color: $details-background;
+    padding: 10px;
+    border-radius: 5px;
+}
+:local(.content) {
+    display: flex;
+}
+:local(.mainContent) {
+    width: 100%;
+    padding: 0px 20px;
+}
+:local(.icon) {
+    padding: 5px;
+}
+:local(.coverContainer) {
+   width: 350px 
+}
+:local(.cover) {
+    width: 100%;
+    height: auto;
+}
+:local(.header) {
+    padding-bottom: 20px;
+    text-align: center;
+}
+:local(.title) {
+    color: $second-font;
+}
+:local(.description) {
+    text-align: justify;
+}
+:local(.comments) {
+    margin-top: 30px;
+}
