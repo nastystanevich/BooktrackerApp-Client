@@ -4,6 +4,9 @@ import AddBookButton from '../AddBookButton';
 import styles from './BooksAmount.css';
 
 class BooksAmount extends Component {
+    static propTypes = {
+        amount: PropTypes.number,
+    }
     render() {
         return (
             <div className={styles.container}>
@@ -15,9 +18,5 @@ class BooksAmount extends Component {
         );
     }
 }
-
-BooksAmount.propTypes = {
-    amount: PropTypes.number,
-};
 
 export default BooksAmount;

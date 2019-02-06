@@ -4,6 +4,9 @@ import {Icon} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 
 class BookDetailsButton extends Component {
+    static propTypes = {
+        id: PropTypes.string,
+    }
     render() {
         const path = `/bookdetails/${this.props.id}`;
         return (
@@ -13,9 +16,5 @@ class BookDetailsButton extends Component {
         );
     }
 }
-
-BookDetailsButton.propTypes = {
-    id: PropTypes.string,
-};
 
 export default BookDetailsButton;

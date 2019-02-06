@@ -7,6 +7,13 @@ import {API_PORT} from '../../config';
 import { getBook } from '../../api';
 
 class BookDetails extends Component {
+    static propTypes = {
+        match: PropTypes.shape({
+            params: PropTypes.shape({
+                id: PropTypes.string,
+            }),
+        }),
+    }
     id = this.props.match.params.id;
     state = {};
 
@@ -60,14 +67,5 @@ class BookDetails extends Component {
         );
     }
 }
-
-BookDetails.propTypes = {
-    match: PropTypes.shape({
-        params: PropTypes.shape({
-            id: PropTypes.string,
-        }),
-    }),
-};
-
 
 export default BookDetails;

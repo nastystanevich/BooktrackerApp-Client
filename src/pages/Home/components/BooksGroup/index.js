@@ -6,7 +6,7 @@ import {getBooks} from '../../../../api';
 import {API_PORT} from '../../../../config';
 
 class BooksGroup extends Component {
-    state = {bookCards: Array}
+    state = {books: ''}
 
     getMarksCount(marks) {
         return (marks.filter(like => like.like).length);
@@ -15,31 +15,42 @@ class BooksGroup extends Component {
     componentDidMount() {
         getBooks()
             .then(books => {
-                const bookCards = books.map(book => {
-                    const backendUrl = `http://localhost:${API_PORT}/`;
-                    book.cover = backendUrl + book.cover;
-
-                    return <BookCard
-                        key={book._id}
-                        id={book._id}
-                        title={book.title}
-                        author={book.author}
-                        cover={book.cover}
-                        likes={this.getMarksCount(book.likes)}
-                        dislikes={this.getMarksCount(book.dislikes)}
-                    ></BookCard>;
-                });
-                this.setState({bookCards: bookCards});
+                this.setState({books: books});
             });
     }
 
+    createBookCards = (books) => {
+        if (books) {
+            return books.map(book => {
+                const backendUrl = `http://localhost:${API_PORT}/`;
+                book.cover = backendUrl + book.cover;
+
+                return <BookCard
+                    key={book._id}
+                    id={book._id}
+                    title={book.title}
+                    author={book.author}
+                    cover={book.cover}
+                    likes={this.getMarksCount(book.likes)}
+                    dislikes={this.getMarksCount(book.dislikes)}
+                ></BookCard>;
+            });
+        }
+    }
+
+    getBooksAmount = (books) => {
+        if (books) {
+            return books.length;
+        }
+    }
     render() {
+        const books = this.state.books;
         return(
             <div className={styles.container}>
                 <div className={styles.booksContainer}>
-                    {this.state.bookCards}
+                    {this.createBookCards(books)}
                 </div>
-                <BooksAmount amount={this.state.bookCards.length}></BooksAmount>
+                <BooksAmount amount={this.getBooksAmount(books)}></BooksAmount>
             </div>
         );
     }
