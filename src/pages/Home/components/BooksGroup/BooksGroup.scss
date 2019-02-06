@@ -1,0 +1,16 @@
+:local(.container) {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    @media screen and (max-width: 770px) {
+        flex-direction: column-reverse;
+    }
+}
+:local(.booksContainer) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    @media screen and (max-width: 770px) {
+        justify-content: center;
+    }
+}

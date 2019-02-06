@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    ["transform-class-properties"],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }]
+  ]
+  
+}
+{
+  "presets": ["@babel/preset-stage-1"]
+}

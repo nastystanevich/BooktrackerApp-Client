@@ -1,0 +1,77 @@
+@import '../../../../styles/variables/colors.scss';
+
+$cardWidth: 180px;
+$imageHeight: 220px;
+@mixin flexable($direction, $justifying, $align: flex-start) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justifying;
+    align-items: $align;
+}
+:local(.card){
+    @include flexable(column, space-between);
+    margin: 5px;
+    width: $cardWidth;
+    background-color: aliceblue;
+    border-radius: 2%;
+}
+
+%image-styles{
+    position: relative;
+    width: 100%;
+    height: $imageHeight;
+    border-radius: 2%;
+}
+:local(.image-container) {
+    @extend %image-styles;
+}
+:local(.image) {
+    @extend %image-styles;
+    height: 100%;
+}
+:local(.image-overlay) {
+    position: absolute;
+    @include flexable(row, center, center);
+    opacity: 0;
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    border-radius: 2%;
+    background-color: rgba(0, 49, 49, 0.9);
+    transition: opacity 0.3s, visibility 0.3s ease-out;
+}
+
+:local(.image-container:hover .image-overlay) { 
+    opacity: 1;
+    visibility: visible;
+}
+:local(.title) {
+    color: $dark-font;
+}
+:local(.content) {
+    padding: 5px;
+}
+:local(.author) {
+   color: $secondary-font;
+}
+:local(.extra) {
+    @include flexable(column, space-between);
+    padding: 5px;
+    width: 100%;
+    border-top: 1px solid $light-divider;
+}
+@media screen and (max-width: 770px) {
+    :local(.card){
+        width: $cardWidth/2;
+        font-size: 0.7em;
+    }
+    :local(.image-container) {
+        height: $imageHeight/2;
+    }
+    :local(.title) {
+        font-size: 1em;
+    }   
+}
