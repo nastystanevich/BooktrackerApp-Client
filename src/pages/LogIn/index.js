@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Button, Form} from 'semantic-ui-react';
 import '../../styles/form.scss';
 import {logIn} from '../../api';
+import {JWT_TOKEN} from '../../config';
 
 class LogInForm extends Component {
     state = {
@@ -9,6 +10,9 @@ class LogInForm extends Component {
         password: '',
         usernameValid: false,
         passwordValid: false,
+        error: {
+            message: '',
+        }
     }
 
     handleChange = (e) => {
@@ -56,12 +60,26 @@ class LogInForm extends Component {
         });
     }
 
-    handleSubmit = () => logIn(this.state.username, this.state.password);
+    handleSubmit = () => {
+        logIn(this.state.username, this.state.password)
+            .then(res => {
+                if (res.message) {
+                    this.setState({errorMessage: res.message.message});
+                }
+                else {
+                    this.setState({errorMessage: ''});
+                    localStorage.setItem(JWT_TOKEN, res.token);
+                    this.clearField();
+                }
+            });
+
+    };
 
     render() {
         return(
             <Form className='form-container' onSubmit={this.handleSubmit}>
                 <h2 className='form-title'>Log In</h2>
+                <h4 className='form-error'>{this.state.errorMessage}</h4>
                 <Form.Field>
                     <label htmlFor='userName'>User name</label>
                     <input name='username' type='text' value={this.state.username} onChange={this.handleChange}></input>

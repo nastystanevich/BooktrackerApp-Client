@@ -38,17 +38,31 @@ function logIn(username, password) {
         password: password,
     });
 
-    fetch(loginUrl, {
+    return fetch(loginUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: user,
-    }).then(res => res.json())
+        body: user})
         .then(res => {
-            localStorage.setItem(JWT_TOKEN, res.token);
+            // if (res.status === 400) {
+            //     res.json()
+            //         .then(res => {
+            //             //console.log(res.message);
+            //             throw res.message;
+            //             //er = throw(res);
+            //         });
+            // }
+            // else {
+            //     res.json()
+            //         .then(res => {
+            //             localStorage.setItem(JWT_TOKEN, res.token);
+            //         });
+            // }
+            
+            return res.json();
         });
-}
+    }
 
 function signUp(username, password) {
     const loginUrl = `${backendUrl}/auth/signup`;
