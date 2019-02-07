@@ -1,5 +1,6 @@
-const getJwt = () => {
-    return localStorage.getItem('user-jwt');
-}
+import { JWT_TOKEN } from '../config';
 
-export default getJwt;
+const getJwt = () => localStorage.getItem(JWT_TOKEN);
+const removeJwt = () => localStorage.removeItem(JWT_TOKEN);
+
+export {getJwt, removeJwt};

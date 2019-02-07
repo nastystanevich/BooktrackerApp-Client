@@ -1,3 +1,4 @@
+import { getJwt, removeJwt } from './helpers/jwt';
 import {API_PORT, JWT_TOKEN} from './config';
 
 const backendUrl = `http://localhost:${API_PORT}/api`;
@@ -65,4 +66,22 @@ function signUp(username, password) {
             localStorage.setItem(JWT_TOKEN, res.token);
         });
 }
-export {postBook, getBooks, getBook, logIn, signUp};
+
+
+async function getUser() {
+    const token = getJwt();
+    const userUrl = `${backendUrl}/user`;
+    const user = await fetch(userUrl, {
+        headers: {
+            Authorization: `Bareare ${token}`,
+        },
+    })
+        .then(res => res.json())
+        .catch(err => {
+            removeJwt();
+            throw(err);
+        });
+
+    return user;
+}
+export {postBook, getBooks, getBook, logIn, signUp, getUser};
