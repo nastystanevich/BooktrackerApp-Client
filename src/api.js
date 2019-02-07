@@ -44,25 +44,8 @@ function logIn(username, password) {
             'Content-Type': 'application/json',
         },
         body: user})
-        .then(res => {
-            // if (res.status === 400) {
-            //     res.json()
-            //         .then(res => {
-            //             //console.log(res.message);
-            //             throw res.message;
-            //             //er = throw(res);
-            //         });
-            // }
-            // else {
-            //     res.json()
-            //         .then(res => {
-            //             localStorage.setItem(JWT_TOKEN, res.token);
-            //         });
-            // }
-            
-            return res.json();
-        });
-    }
+        .then(res => res.json());
+}
 
 function signUp(username, password) {
     const loginUrl = `${backendUrl}/auth/signup`;

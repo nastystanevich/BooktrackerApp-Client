@@ -10,9 +10,6 @@ class LogInForm extends Component {
         password: '',
         usernameValid: false,
         passwordValid: false,
-        error: {
-            message: '',
-        }
     }
 
     handleChange = (e) => {
@@ -57,6 +54,7 @@ class LogInForm extends Component {
             password: '',
             secondPassword: '',
             validatineStyle: '',
+            errorMessage: '',
         });
     }
 
