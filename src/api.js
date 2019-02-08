@@ -68,20 +68,21 @@ function signUp(username, password) {
 }
 
 
-async function getUser() {
+function getUser() {
     const token = getJwt();
-    const userUrl = `${backendUrl}/user`;
-    const user = await fetch(userUrl, {
-        headers: {
-            Authorization: `Bareare ${token}`,
-        },
-    })
-        .then(res => res.json())
-        .catch(err => {
-            removeJwt();
-            throw(err);
-        });
-
-    return user;
+    if (token) {
+        const userUrl = `${backendUrl}/user`;
+        return fetch(userUrl, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }).then(res => res.json())
+            .catch(err => {
+                removeJwt();
+                return(err);
+            });
+    }
+    return new Promise(res => res(false));
 }
 export {postBook, getBooks, getBook, logIn, signUp, getUser};

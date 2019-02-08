@@ -1,26 +1,8 @@
-//принимает 
-//  текущее состояние
-//  action
-//возвращает
-//  новое состояние
+import { combineReducers } from 'redux';
+//import logInReducer from './logInReducer';
+import userReducer from './userReducer';
 
-//import { logIn } from './action';
-import { getUser } from '../api';
 
-const intialSatate = {
-    user: null,
-}
-
-function logInReducer(state, action) {
-    if (state === 'underfined') {
-        return intialSatate;
-    }
-    switch (action.type) {
-    case 'LOGED_IN':
-        return Object.assign({}, state, {user: getUser()});
-    default:
-        return state;
-    }
-}
-
-export {logInReducer};
+export default combineReducers({
+    user: userReducer,
+});
