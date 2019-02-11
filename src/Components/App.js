@@ -9,7 +9,7 @@ import SignUpForm from '../pages/SignUp';
 import Profile from '../pages/Profile';
 
 import { connect } from 'react-redux';
-import { fetchUser } from '../actions';
+import { fetchUser, fetchBooks } from '../actions';
 import PropTypes from 'prop-types';
 
 class App extends Component {
@@ -18,6 +18,7 @@ class App extends Component {
     }
     componentDidMount() {
         this.props.dispatch(fetchUser());
+        this.props.dispatch(fetchBooks());
     }
     render() {
         return (

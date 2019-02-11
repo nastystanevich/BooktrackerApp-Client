@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Button} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { setUserIsLoggedIn } from '../actions';
+import { setUserIsLoggedIn } from '../../../../../actions';
 import { connect } from 'react-redux';
 
 class LogOutButton extends Component {

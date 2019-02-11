@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import BookCard from '../BookCard';
 import BooksAmount from '../BooksAmount';
 import styles from './BooksGroup.scss';
-import {getBooks} from '../../../../api';
-import {API_PORT} from '../../../../config';
+import { API_PORT } from '../../../../config';
+import { getBooks } from '../../../../helpers/api';
 
 class BooksGroup extends Component {
     state = {books: ''}

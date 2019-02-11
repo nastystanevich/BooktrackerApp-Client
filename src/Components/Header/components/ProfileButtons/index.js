@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import LogOutButton from '../../containers/LogOutButton';
-import OpenProfileButton from '../OpenProfileButton/index';
+import LogOutButton from './containers/LogOutButton';
+import OpenProfileButton from './components/OpenProfileButton';
 
 
 class ProfileButtons extends Component {

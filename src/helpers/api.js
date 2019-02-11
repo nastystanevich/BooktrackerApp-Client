@@ -1,5 +1,5 @@
-import { getJwt, removeJwt } from './helpers/jwt';
-import {API_PORT, JWT_TOKEN} from './config';
+import { getJwt, removeJwt } from './jwt';
+import { API_PORT, JWT_TOKEN } from '../config';
 
 const backendUrl = `http://localhost:${API_PORT}/api`;
 
@@ -15,21 +15,21 @@ function postBook(book) {
         method: 'POST',
         config,
         body: book,
-    }).then(response => {
-        response.json();
+    }).then(res => {
+        res.json();
     });
 }
 
 function getBooks() {
     const booksUrl = `${backendUrl}/books`;
     return fetch(booksUrl)
-        .then((response) => response.json());
+        .then((res) => res.json());
 }
 
 function getBook(id) {
     const bookUrl = `${backendUrl}/books/${id}`;
     return fetch(bookUrl)
-        .then((response) => response.json());
+        .then((res) => res.json());
 }
 
 function logIn(username, password) {

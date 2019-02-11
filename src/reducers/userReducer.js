@@ -1,11 +1,11 @@
-import {JWT_TOKEN} from '../config';
+import { JWT_TOKEN } from '../config';
 
-const intialSatate = {
+const intialState = {
     userLogged: false,
     userData: 'Anothorized User',
 };
 
-function userReducer(state = intialSatate, action) {
+function userReducer(state = intialState, action) {
     switch(action.type) {
     case 'LOGED_IN':
         if (!action.isLogged) {

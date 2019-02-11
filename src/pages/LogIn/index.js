@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import '../../styles/form.scss';
-import { logIn } from '../../api';
+import { logIn } from '../../helpers/api';
 import { JWT_TOKEN } from '../../config';
 
 import { connect } from 'react-redux';

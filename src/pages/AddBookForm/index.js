@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Form, Rating} from 'semantic-ui-react';
 import styles from './AddBookForm.scss';
-import {postBook} from '../../api';
+import {postBook} from '../../helpers/api';
 import { connect } from 'react-redux';
 
 class AddBookForm extends Component {

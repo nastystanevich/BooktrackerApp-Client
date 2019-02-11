@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styles from './Header.scss';
-import AuthenticationButtons from '../AuthenticationButtons';
+import AuthenticationButtons from './components/AuthenticationButtons';
 import PropTypes from 'prop-types';
-import ProfileButtons from '../ProfileButtons';
+import ProfileButtons from './components/ProfileButtons';
 
 class Header extends Component {
     static propTypes = {
@@ -19,6 +19,5 @@ class Header extends Component {
         );
     }
 }
-
 
 export default Header;

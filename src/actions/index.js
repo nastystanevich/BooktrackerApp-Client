@@ -1,4 +1,4 @@
-import { getUser } from '../api';
+import { getUser, getBooks } from '../helpers/api';
 
 function setUserIsLoggedIn(result) {
     return {
@@ -22,4 +22,20 @@ function fetchUser() {
     };
 }
 
-export { setUserIsLoggedIn, fetchUser};
+function recieveBooks(books) {
+    return {
+        type: 'RECEIVED_BOOKS',
+        books: books,
+    };
+}
+
+function fetchBooks() {
+    return function (dispatch) {
+        return getBooks()
+            .then(res => {
+                dispatch(recieveBooks(res));
+            });
+    };
+}
+
+export { setUserIsLoggedIn, fetchUser, fetchBooks };

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Comment} from 'semantic-ui-react';
 import styles from './BookComments.scss';
-import {getBook} from '../../../../api';
+import {getBook} from '../../../../helpers/api';
 
 class BookComments extends Component {
     static propTypes = {
