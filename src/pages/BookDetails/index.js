@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Icon} from 'semantic-ui-react';
 import BookComments from './components/BookComments';
 import styles from './BookDetails.scss';
-import {API_PORT} from '../../config';
+import { API_PORT } from '../../config';
 import { getBook } from '../../api';
 
 class BookDetails extends Component {

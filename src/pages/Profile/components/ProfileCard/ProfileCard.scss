@@ -1,0 +1,12 @@
+@import '../../../../styles/variables/colors.scss';
+
+:local(.container) {
+    width: 60%;
+    margin: auto;
+    background-color: $details-background;
+    padding: 10px;
+    border-radius: 5px;
+}
+:local(.content) {
+    display: flex;
+}

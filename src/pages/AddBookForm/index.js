@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Button, Form, Rating} from 'semantic-ui-react';
 import styles from './AddBookForm.scss';
 import {postBook} from '../../api';
+import { connect } from 'react-redux';
 
 class AddBookForm extends Component {
     coverFile = React.createRef();
@@ -9,7 +10,6 @@ class AddBookForm extends Component {
         titleValid: false,
         authorValid: false,
         publishedValid: false,
-        //coverValid: false,
         formValid: false,
     }
 
@@ -102,6 +102,8 @@ class AddBookForm extends Component {
             queryBody.append(key, this.state[key]);
         }
 
+        //queryBody.append(user, this.props.state)
+
         postBook(queryBody);
         this.handleResetClick();
     }
@@ -141,4 +143,4 @@ class AddBookForm extends Component {
     }
 }
 
-export default AddBookForm;
+export default connect()(AddBookForm);
