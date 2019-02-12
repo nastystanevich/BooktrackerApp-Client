@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import BookCard from '../BookCard';
 import BooksAmount from '../BooksAmount';
 import styles from './BooksGroup.scss';
@@ -6,10 +7,13 @@ import { API_PORT } from '../../../../config';
 import { getBooks } from '../../../../helpers/api';
 
 class BooksGroup extends Component {
+    static propTypes = {
+        userLogged: PropTypes.bool,
+    }
     state = {books: ''}
 
     getMarksCount(marks) {
-        return (marks.filter(like => like.like).length);
+        return marks.length;
     }
 
     componentDidMount() {
@@ -24,8 +28,8 @@ class BooksGroup extends Component {
             return books.map(book => {
                 const backendUrl = `http://localhost:${API_PORT}/`;
                 book.cover = backendUrl + book.cover;
-
                 return <BookCard
+                    userLogged={this.props.userLogged}
                     key={book._id}
                     id={book._id}
                     title={book.title}

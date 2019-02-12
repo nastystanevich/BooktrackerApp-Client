@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Route, Switch, withRouter} from 'react-router-dom';
 import Home from '../pages/Home';
-import AddBookForm from '../pages/AddBookForm';
+import AddBook from '../pages/AddBook';
 import BookDetails from '../pages/BookDetails';
 import LogInForm from '../pages/LogIn';
 import HeaderContent from '../containers/HeaderContent';
@@ -29,7 +29,7 @@ class App extends Component {
                     <Route path='/user/profile' component={Profile} />
                     <Route path='/auth/signup' component={SignUpForm} />
                     <Route path='/auth/login' component={LogInForm} />
-                    <Route path='/addbook' component={AddBookForm} />
+                    <Route path='/addbook' component={AddBook} />
                     <Route path='/bookdetails/:id' component={BookDetails} />
                 </Switch>
             </div>

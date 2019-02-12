@@ -1,4 +1,4 @@
-import { getUser, getBooks } from '../helpers/api';
+import { getUser, getBooks, postBook } from '../helpers/api';
 
 function setUserIsLoggedIn(result) {
     return {
@@ -23,6 +23,7 @@ function fetchUser() {
 }
 
 function recieveBooks(books) {
+    
     return {
         type: 'RECEIVED_BOOKS',
         books: books,
@@ -32,10 +33,21 @@ function recieveBooks(books) {
 function fetchBooks() {
     return function (dispatch) {
         return getBooks()
-            .then(res => {
-                dispatch(recieveBooks(res));
-            });
+            .then(res => dispatch(recieveBooks(res)));
     };
 }
+function recieveBook(book) {
+    return {
+        type: 'RECEIVED_BOOK',
+        book: book,
+    };
+}
+function postNewBook(book) {
+    return function (dispatch) {
+        return postBook(book)
+            .then(getBooks()
+                .then(res => dispatch(recieveBooks(res))));
+    }
+}
 
-export { setUserIsLoggedIn, fetchUser, fetchBooks };
+export { setUserIsLoggedIn, fetchUser, fetchBooks, postNewBook };

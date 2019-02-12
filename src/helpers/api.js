@@ -11,13 +11,11 @@ function postBook(book) {
         },
     };
 
-    fetch(booksUrl, {
+    return fetch(booksUrl, {
         method: 'POST',
         config,
         body: book,
-    }).then(res => {
-        res.json();
-    });
+    }).then(res => res.json());
 }
 
 function getBooks() {
