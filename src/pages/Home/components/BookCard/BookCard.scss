@@ -58,10 +58,13 @@ $imageHeight: 220px;
    color: $secondary-font;
 }
 :local(.extra) {
-    @include flexable(column, space-between);
+    @include flexable(row, space-between, center);
     padding: 5px;
     width: 100%;
     border-top: 1px solid $light-divider;
+}
+:local(.icons) {
+    @include flexable(column, space-between);
 }
 @media screen and (max-width: 770px) {
     :local(.card){

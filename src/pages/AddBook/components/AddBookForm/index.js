@@ -1,15 +1,20 @@
 import React, {Component} from 'react';
 import {Button, Form, Rating} from 'semantic-ui-react';
 import styles from './AddBookForm.scss';
-import {postBook} from '../../api';
+import { postBook } from '../../../../helpers/api';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class AddBookForm extends Component {
+    static propTypes = {
+        userLogged: PropTypes.bool,
+        id: PropTypes.string,
+    }
     coverFile = React.createRef();
     state = {
         titleValid: false,
         authorValid: false,
         publishedValid: false,
-        //coverValid: false,
         formValid: false,
     }
 
@@ -28,7 +33,10 @@ class AddBookForm extends Component {
             break;
         }
         if(rating) {
-            value = !!rating.rating;
+            //value = !!rating.rating;
+            if (rating.rating) {
+                value = this.props.id;
+            }
         }
 
         const name = target.name || rating.name;
@@ -42,7 +50,6 @@ class AddBookForm extends Component {
         let titleValid = this.state.titleValid;
         let authorValid = this.state.authorValid;
         let publishedValid = this.state.publishedValid;
-        //let coverValid = this.state.coverValid;
 
         switch(fieldName) {
         case 'title':
@@ -54,9 +61,6 @@ class AddBookForm extends Component {
         case 'published':
             publishedValid = value.match(/^[1-9][0-9]{3}$/);
             break;
-        case 'cover':
-            //coverValid = value.match(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/gm);
-            break;
         default:
             break;
         }
@@ -65,7 +69,6 @@ class AddBookForm extends Component {
             titleValid: titleValid,
             authorValid: authorValid,
             publishedValid: publishedValid,
-            //coverValid: coverValid,
         },
         this.validateForm);
     }
@@ -76,7 +79,6 @@ class AddBookForm extends Component {
                 this.state.titleValid &&
                 this.state.authorValid &&
                 this.state.publishedValid,
-            //this.state.coverValid,
         });
     }
 
@@ -101,12 +103,25 @@ class AddBookForm extends Component {
         for (const key in this.state) {
             queryBody.append(key, this.state[key]);
         }
-
+        //this.props.onSubmitClick(queryBody);
         postBook(queryBody);
         this.handleResetClick();
     }
 
     render() {
+        const usersFields =
+            <div>
+                <Form.Field>
+                    <label htmlFor='comment'>Your comment</label>
+                    <textarea name='comment' value={this.state.comment} onChange={this.handleChange} placeholder='Comment' />
+                </Form.Field>
+                <Form.Field>
+                    <label htmlFor='like'>Like it</label>
+                    <Rating icon='heart' name='like' size='huge' value={this.state.like} onRate={this.handleChange}></Rating>
+                </Form.Field>
+            </div>;
+        const emptyFields = <span></span>;
+
         return(
             <Form className={styles.container} onSubmit={this.handleSubmit}>
                 <h2 className={styles.title}>Add New Book</h2>
@@ -126,14 +141,7 @@ class AddBookForm extends Component {
                     <input className={styles.hidden} type='file' name='cover' ref={fileInput => (this.fileInput = fileInput)} onChange={this.handleChange} accept='image/*'></input>
                     <Button type='button' color='pink' onClick={() => this.fileInput.click()}>Choose book cover</Button>
                 </Form.Field>
-                <Form.Field>
-                    <label htmlFor='comment'>Your comment</label>
-                    <textarea name='comment' value={this.state.comment} onChange={this.handleChange} placeholder='Comment' />
-                </Form.Field>
-                <Form.Field>
-                    <label htmlFor='like'>Like it</label>
-                    <Rating icon='heart' name='like' size='huge' value={this.state.like} onRate={this.handleChange}></Rating>
-                </Form.Field>
+                {this.props.userLogged ? usersFields : emptyFields}
                 <Button type='button' onClick={this.handleResetClick}>Reset</Button>
                 <Button type='submit' color="teal" disabled={!this.state.formValid}>Add The Book</Button>
             </Form>
@@ -141,4 +149,4 @@ class AddBookForm extends Component {
     }
 }
 
-export default AddBookForm;
+export default connect()(AddBookForm);

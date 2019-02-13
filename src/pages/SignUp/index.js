@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Form} from 'semantic-ui-react';
 import '../../styles/form.scss';
-import {signUp} from '../../api';
+import {signUp} from '../../helpers/api';
 
 class SignUpForm extends Component {
     state = {

@@ -1,4 +1,5 @@
-import {API_PORT, JWT_TOKEN} from './config';
+import { getJwt } from './jwt';
+import { API_PORT } from '../config';
 
 const backendUrl = `http://localhost:${API_PORT}/api`;
 
@@ -10,25 +11,23 @@ function postBook(book) {
         },
     };
 
-    fetch(booksUrl, {
+    return fetch(booksUrl, {
         method: 'POST',
         config,
         body: book,
-    }).then(response => {
-        response.json();
-    });
+    }).then(res => res.json());
 }
 
 function getBooks() {
     const booksUrl = `${backendUrl}/books`;
     return fetch(booksUrl)
-        .then((response) => response.json());
+        .then((res) => res.json());
 }
 
 function getBook(id) {
     const bookUrl = `${backendUrl}/books/${id}`;
     return fetch(bookUrl)
-        .then((response) => response.json());
+        .then((res) => res.json());
 }
 
 function logIn(username, password) {
@@ -38,16 +37,13 @@ function logIn(username, password) {
         password: password,
     });
 
-    fetch(loginUrl, {
+    return fetch(loginUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: user,
-    }).then(res => res.json())
-        .then(res => {
-            localStorage.setItem(JWT_TOKEN, res.token);
-        });
+        body: user})
+        .then(res => res.json());
 }
 
 function signUp(username, password) {
@@ -63,9 +59,22 @@ function signUp(username, password) {
             'Content-Type': 'application/json',
         },
         body: user,
-    }).then(res => res.json())
-        .then(res => {
-            localStorage.setItem(JWT_TOKEN, res.token);
-        });
+    }).then(res => res.json());
 }
-export {postBook, getBooks, getBook, logIn, signUp};
+
+
+function getUser() {
+    const token = getJwt();
+    if (token) {
+        const userUrl = `${backendUrl}/user`;
+        return fetch(userUrl, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }).then(res => res.json())
+            .catch(err => err);
+    }
+    return new Promise(res => res(false));
+}
+export {postBook, getBooks, getBook, logIn, signUp, getUser};

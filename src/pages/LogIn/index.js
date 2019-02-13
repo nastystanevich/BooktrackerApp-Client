@@ -1,9 +1,17 @@
-import React, {Component} from 'react';
-import {Button, Form} from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { Button, Form } from 'semantic-ui-react';
 import '../../styles/form.scss';
-import {logIn} from '../../api';
+import { logIn } from '../../helpers/api';
+import { JWT_TOKEN } from '../../config';
+
+import { connect } from 'react-redux';
+import { setUserIsLoggedIn, fetchUser } from '../../actions';
+import PropTypes from 'prop-types';
 
 class LogInForm extends Component {
+    static propTypes = {
+        dispatch: PropTypes.func,
+    }
     state = {
         username: '',
         password: '',
@@ -53,15 +61,37 @@ class LogInForm extends Component {
             password: '',
             secondPassword: '',
             validatineStyle: '',
-        });
+            usernameValid: false,
+            passwordValid: false,
+            errorMessage: '',
+        },
+        this.validateForm);
     }
 
-    handleSubmit = () => logIn(this.state.username, this.state.password);
+    handleSubmit = () => {
+        logIn(this.state.username, this.state.password)
+            .then(res => {
+                if (res.message) {
+                    this.setState({errorMessage: res.message.message});
+                    localStorage.removeItem(JWT_TOKEN);
+                    this.props.dispatch(setUserIsLoggedIn(false));
+                }
+                else {
+                    this.setState({errorMessage: ''});
+                    localStorage.setItem(JWT_TOKEN, res.token);
+                    this.clearField();
+                    this.props.dispatch(setUserIsLoggedIn(true));
+                    this.props.dispatch(fetchUser());
+                }
+            });
+
+    };
 
     render() {
         return(
             <Form className='form-container' onSubmit={this.handleSubmit}>
                 <h2 className='form-title'>Log In</h2>
+                <h4 className='form-error'>{this.state.errorMessage}</h4>
                 <Form.Field>
                     <label htmlFor='userName'>User name</label>
                     <input name='username' type='text' value={this.state.username} onChange={this.handleChange}></input>
@@ -76,4 +106,4 @@ class LogInForm extends Component {
     }
 }
 
-export default LogInForm;
+export default connect()(LogInForm);

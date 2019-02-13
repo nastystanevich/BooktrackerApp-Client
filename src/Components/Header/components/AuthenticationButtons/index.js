@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SignUpButton from '../SignUpButton';
-import LogInButton from '../LogInButton';
+import SignUpButton from './components/SignUpButton';
+import LogInButton from './components/LogInButton';
 
 
 class AuthenticationButtons extends Component {

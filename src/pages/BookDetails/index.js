@@ -1,18 +1,14 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import {Icon} from 'semantic-ui-react';
 import BookComments from './components/BookComments';
 import styles from './BookDetails.scss';
-import {API_PORT} from '../../config';
-import { getBook } from '../../api';
+import { API_PORT } from '../../config';
+import { getBook } from '../../helpers/api';
 
 class BookDetails extends Component {
     static propTypes = {
-        match: PropTypes.shape({
-            params: PropTypes.shape({
-                id: PropTypes.string,
-            }),
-        }),
+        match: ReactRouterPropTypes.match.isRequired,
     }
     id = this.props.match.params.id;
     state = {};
