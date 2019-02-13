@@ -1,5 +1,5 @@
-import { getJwt, removeJwt } from './jwt';
-import { API_PORT, JWT_TOKEN } from '../config';
+import { getJwt } from './jwt';
+import { API_PORT } from '../config';
 
 const backendUrl = `http://localhost:${API_PORT}/api`;
 
@@ -59,10 +59,7 @@ function signUp(username, password) {
             'Content-Type': 'application/json',
         },
         body: user,
-    }).then(res => res.json())
-        .then(res => {
-            localStorage.setItem(JWT_TOKEN, res.token);
-        });
+    }).then(res => res.json());
 }
 
 
@@ -76,10 +73,7 @@ function getUser() {
                 Authorization: `Bearer ${token}`,
             },
         }).then(res => res.json())
-            .catch(err => {
-                removeJwt();
-                return(err);
-            });
+            .catch(err => err);
     }
     return new Promise(res => res(false));
 }

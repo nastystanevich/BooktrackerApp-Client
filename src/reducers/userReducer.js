@@ -1,4 +1,4 @@
-import { JWT_TOKEN } from '../config';
+import { removeJwt } from '../helpers/jwt';
 
 const intialState = {
     userLogged: false,
@@ -9,7 +9,7 @@ function userReducer(state = intialState, action) {
     switch(action.type) {
     case 'LOGED_IN':
         if (!action.isLogged) {
-            localStorage.removeItem(JWT_TOKEN);
+            removeJwt();
             return Object.assign({}, state, {
                 userLogged: action.isLogged,
                 userData: 'Anothorised User',
@@ -17,6 +17,7 @@ function userReducer(state = intialState, action) {
         }
         return Object.assign({}, state, {userLogged: action.isLogged});
     case 'RECEIVED_USER':
+
         return Object.assign({}, state, {userData: action.user});
     default:
         return state;

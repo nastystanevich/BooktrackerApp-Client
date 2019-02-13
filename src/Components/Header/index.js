@@ -3,6 +3,7 @@ import styles from './Header.scss';
 import AuthenticationButtons from './components/AuthenticationButtons';
 import PropTypes from 'prop-types';
 import ProfileButtons from './components/ProfileButtons';
+import { connect } from 'react-redux';
 
 class Header extends Component {
     static propTypes = {
@@ -20,4 +21,11 @@ class Header extends Component {
     }
 }
 
-export default Header;
+const mapStateToProps = (state) => ({
+    userLogged: state.user.userLogged,
+    username: state.user.userData.username,
+});
+
+export default connect(
+    mapStateToProps
+)(Header);

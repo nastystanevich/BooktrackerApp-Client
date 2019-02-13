@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import AddBookForm from './components/AddBookForm';
-import { postNewBook } from '../../actions';
 
 const mapStateToProps = (state) => {
     if (state.user.userLogged) {
@@ -14,15 +13,8 @@ const mapStateToProps = (state) => {
     });
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    onSubmitClick: (book) => {
-        dispatch(postNewBook(book));
-    },
-});
-
 const AddBook = connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(AddBookForm);
 
 export default AddBook;

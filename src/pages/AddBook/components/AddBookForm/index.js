@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 
 class AddBookForm extends Component {
     static propTypes = {
-        onSubmitClick: PropTypes.func,
         userLogged: PropTypes.bool,
         id: PropTypes.string,
     }
@@ -104,9 +103,8 @@ class AddBookForm extends Component {
         for (const key in this.state) {
             queryBody.append(key, this.state[key]);
         }
-        // postBook(queryBody);
-        
-        this.props.onSubmitClick(queryBody);
+        //this.props.onSubmitClick(queryBody);
+        postBook(queryBody);
         this.handleResetClick();
     }
 
@@ -123,6 +121,7 @@ class AddBookForm extends Component {
                 </Form.Field>
             </div>;
         const emptyFields = <span></span>;
+
         return(
             <Form className={styles.container} onSubmit={this.handleSubmit}>
                 <h2 className={styles.title}>Add New Book</h2>

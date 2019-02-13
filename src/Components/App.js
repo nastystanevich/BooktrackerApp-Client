@@ -4,26 +4,25 @@ import Home from '../pages/Home';
 import AddBook from '../pages/AddBook';
 import BookDetails from '../pages/BookDetails';
 import LogInForm from '../pages/LogIn';
-import HeaderContent from '../containers/HeaderContent';
+import Header from './Header';
 import SignUpForm from '../pages/SignUp';
 import Profile from '../pages/Profile';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { fetchUser, fetchBooks } from '../actions';
-import PropTypes from 'prop-types';
+import { fetchUser } from '../actions';
 
 class App extends Component {
     static propTypes = {
-        dispatch: PropTypes.func,
+        fetchUser: PropTypes.func,
     }
     componentDidMount() {
-        this.props.dispatch(fetchUser());
-        this.props.dispatch(fetchBooks());
+        this.props.fetchUser();
     }
     render() {
         return (
             <div className='wrapper'>
-                <HeaderContent />
+                <Header />
                 <Switch>
                     <Route exact path='/' component={Home} />
                     <Route path='/user/profile' component={Profile} />
@@ -37,4 +36,13 @@ class App extends Component {
     }
 }
 
-export default withRouter(connect()(App));
+const mapDispatchToProps = (dispatch) => ({
+    fetchUser: () => {
+        dispatch(fetchUser());
+    },
+});
+
+export default withRouter(connect(
+    null,
+    mapDispatchToProps
+)(App));
