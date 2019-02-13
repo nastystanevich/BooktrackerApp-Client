@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import {Icon} from 'semantic-ui-react';
+import { Icon, Rating } from 'semantic-ui-react';
 import BookComments from './components/BookComments';
 import styles from './BookDetails.scss';
 import { API_PORT } from '../../config';
 import { getBook } from '../../helpers/api';
+import { connect } from 'react-redux';
 
 class BookDetails extends Component {
     static propTypes = {
         match: ReactRouterPropTypes.match.isRequired,
+        //userId: PropTypes.string,
     }
     id = this.props.match.params.id;
     state = {};
@@ -24,8 +26,11 @@ class BookDetails extends Component {
             });
     }
 
+    // handleChange = (e, rating) => {
+    // }
+
     count(marks) {
-        return (marks.filter(like => like.like).length);
+        return marks.length;
     }
 
     render() {
@@ -53,10 +58,11 @@ class BookDetails extends Component {
                             </Icon>
                         </span>
                         <p className={styles.description}>{description}</p>
+                        {/* <likeButton ></likeButton> */}
+                        <Rating icon='heart' name='like' size='huge' rating={this.state.userLike} onRate={this.handleChange}></Rating>
                     </div>
                 </div>
                 <div className={styles.comments}>
-                    <h3>Comments</h3>
                     <BookComments id={this.id}></BookComments>
                 </div>
             </div>
@@ -64,4 +70,8 @@ class BookDetails extends Component {
     }
 }
 
-export default BookDetails;
+const mapStateToProps = (state) => ({
+    userId: state.user.userData._id,
+});
+
+export default connect(mapStateToProps)(BookDetails);

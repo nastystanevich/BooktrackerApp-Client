@@ -5,7 +5,7 @@ const mapStateToProps = (state) => {
     if (state.user.userLogged) {
         return ({
             userLogged: state.user.userLogged,
-            id: state.user.userData._id,
+            userId: state.user.userData._id,
         });
     }
     return ({

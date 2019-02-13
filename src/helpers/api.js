@@ -15,7 +15,25 @@ function postBook(book) {
         method: 'POST',
         config,
         body: book,
-    }).then(res => res.json());
+    }).then(res => res.json())
+        .then(res => res._id);
+}
+
+function postComment(bookId, commentText, userId) {
+    const comment = JSON.stringify({comment: commentText});
+    const token = getJwt();
+    if (token) {
+        const commentUrl = `${backendUrl}/comment/${userId}/${bookId}`;
+        return fetch(commentUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: comment,
+        }).then(res => res.json())
+            .catch(err => err);
+    }
 }
 
 function getBooks() {
@@ -27,7 +45,13 @@ function getBooks() {
 function getBook(id) {
     const bookUrl = `${backendUrl}/books/${id}`;
     return fetch(bookUrl)
-        .then((res) => res.json());
+        .then(res => res.json());
+}
+
+function getComments(bookId) {
+    const bookCommentsUrl = `${backendUrl}/books/${bookId}/comments`;
+    return fetch(bookCommentsUrl)
+        .then(res => res.json());
 }
 
 function logIn(username, password) {
@@ -77,4 +101,6 @@ function getUser() {
     }
     return new Promise(res => res(false));
 }
-export {postBook, getBooks, getBook, logIn, signUp, getUser};
+export {postBook, postComment,
+    getBooks, getComments,
+    getBook, logIn, signUp, getUser};

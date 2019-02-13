@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {Button, Form, Rating} from 'semantic-ui-react';
 import styles from './AddBookForm.scss';
-import { postBook } from '../../../../helpers/api';
+import { postBook, postComment } from '../../../../helpers/api';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class AddBookForm extends Component {
     static propTypes = {
         userLogged: PropTypes.bool,
-        id: PropTypes.string,
+        userId: PropTypes.string,
     }
     coverFile = React.createRef();
     state = {
@@ -35,7 +35,7 @@ class AddBookForm extends Component {
         if(rating) {
             //value = !!rating.rating;
             if (rating.rating) {
-                value = this.props.id;
+                value = this.props.userId;
             }
         }
 
@@ -103,8 +103,15 @@ class AddBookForm extends Component {
         for (const key in this.state) {
             queryBody.append(key, this.state[key]);
         }
-        //this.props.onSubmitClick(queryBody);
         postBook(queryBody);
+        if (this.props.userLogged) {
+            if (this.state.comment !== '') {
+                const comment = this.state.comment;
+                postBook(queryBody)
+                    .then(bookId =>
+                        postComment(bookId, comment, this.props.userId));
+            }
+        }
         this.handleResetClick();
     }
 

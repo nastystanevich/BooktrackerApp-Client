@@ -1,12 +1,11 @@
-@import '../../../../styles/variables/colors';
+@import '../../../../styles/variables/colors.scss';
 
 :local(.comment) {
-    position: relative;
-    width: 100%;
     padding: 5px;
-    margin: 5px;
-    border-radius: 5%;
     background-color: $light-background;
+}
+:local(.header) {
+    display: flex;
 }
 :local(.user) {
     font-size: 1.2em;
